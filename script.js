@@ -2,6 +2,11 @@ const getSumBtn = document.createElement("button");
 getSumBtn.append("Get Total Price");
 document.body.appendChild(getSumBtn);
 
+// Create a placeholder for the result
+let ans = document.createElement("div");
+ans.setAttribute("id", "ans");
+document.body.appendChild(ans);
+
 const getSum = () => {
   // Select all price elements
   const prices = document.querySelectorAll(".prices");
@@ -9,21 +14,11 @@ const getSum = () => {
 
   // Calculate the total price
   prices.forEach(priceCell => {
-    total += parseFloat(priceCell.textContent);
+    total += parseFloat(priceCell.textContent) || 0;
   });
 
-  // Create a new row and cell for the total
-  const totalRow = document.createElement("tr");
-  const totalCell = document.createElement("td");
-
-  totalCell.colSpan = 2; // Assuming the table has two columns: item and price
-  totalCell.textContent = `Total Price: ₹${total}`;
-
-  totalRow.appendChild(totalCell);
-
-  // Append the row to the table
-  const table = document.querySelector("table");
-  table.appendChild(totalRow);
+  // Display total in #ans
+  document.getElementById("ans").textContent = total;
 };
 
 getSumBtn.addEventListener("click", getSum);
